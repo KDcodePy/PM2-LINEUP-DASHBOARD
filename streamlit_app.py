@@ -10,7 +10,6 @@ from streamlit_lottie import st_lottie
 
 import os
 
-data = os.path.realpath(r'C:\Users\kdelfino\Documents\GitHub\PM2_Lineup_Dashboard\PM2-LINEUP-DASHBOARD\out.cvs')
 
 
 # Page config
@@ -82,7 +81,7 @@ def load_lottieurl(url:str):
         return None
     return r.json()
 
-df = pd.read_csv(data)
+df = pd.read_csv('out.cvs')
 
 st.title('***Welcome!***')
 
@@ -95,7 +94,7 @@ with st.sidebar:
     st.title('🏂 PM2 Rotation Dashboard')
     # Logo 
 
-    lottie_cybertruck = load_lottiefile(os.path.realpath(r'C:\Users\kdelfino\Documents\GitHub\PM2_Lineup_Dashboard\PM2-LINEUP-DASHBOARD\cybertruck.json'))
+    lottie_cybertruck = load_lottiefile('cybertruck.json')
     st_lottie(lottie_cybertruck,
             speed=1,
             reverse=False,
@@ -109,7 +108,7 @@ with st.sidebar:
 # Dashboard Main Panel
 col = st.columns((.5, 20, 2), gap='medium')
 
-lottie_tesla = load_lottiefile(os.path.realpath(r'C:\Users\kdelfino\Documents\GitHub\PM2_Lineup_Dashboard\PM2-LINEUP-DASHBOARD\tesla.json'))
+lottie_tesla = load_lottiefile('tesla.json')
 st_lottie(lottie_tesla,
             speed=1,
             reverse=False,
@@ -119,10 +118,6 @@ st_lottie(lottie_tesla,
             )
     
 
-def random_bytes(n):
-    "Return n random bytes"
-    with open('/dev/urandom', 'rb') as file:
-        return file.read(n)
 with col[1]:
     
     aka  =st.selectbox('Select a Name', df['AKA'].unique())
