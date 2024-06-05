@@ -1,0 +1,10 @@
+streamlit
+pandas
+matplotlib.pyplot
+seaborn
+numpy
+altair
+random
+json
+requests
+st_lottie
