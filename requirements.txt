@@ -1,9 +1,8 @@
-streamlit
-pandas
-matplotlib
-seaborn
-numpy
-altair
-json
-requests
-st_lottie
+altair==5.3.0
+matplotlib==3.6.2
+numpy==1.23.4
+pandas==1.5.2
+Requests==2.32.3
+seaborn==0.13.2
+streamlit==1.35.0
+streamlit_lottie==0.0.5
