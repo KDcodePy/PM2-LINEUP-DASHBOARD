@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import altair as alt
-import random
 import json
 import requests
 from streamlit_lottie import st_lottie
@@ -116,6 +115,10 @@ st_lottie(lottie_tesla,
             )
     
 
+def random_bytes(n):
+    "Return n random bytes"
+    with open('/dev/urandom', 'rb') as file:
+        return file.read(n)
 with col[1]:
     
     aka  =st.selectbox('Select a Name', df['AKA'].unique())
@@ -131,7 +134,7 @@ with col[1]:
     
     # # Creating explode data
     # explode = (0.1,0.2,0.0,0.0,0.2,0.1,0.1,0.2,0.1)
-    explode = tuple(round(random.uniform(0.0,0.23),2) for i in range(len(Station)))
+    explode = tuple(0.15 for i in range(len(Station)))
     
     # Creating color parameters
     colors = ("moccasin", "peru", "darkgray",
