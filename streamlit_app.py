@@ -114,7 +114,7 @@ st_lottie(lottie_tesla,
             reverse=False,
             loop=True,
             height=200,
-            width=750,
+            width=250,
             )
     
 
