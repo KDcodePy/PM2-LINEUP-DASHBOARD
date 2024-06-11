@@ -127,7 +127,7 @@ with col[1]:
     aka  =st.selectbox('Select a Name', df['AKA'].unique())
     # Get name
 
-    stations_per_aka = df[df['AKA']== aka].drop(columns=['Date','Rotation','AKA'])
+    stations_per_aka = df[([df['AKA']== aka] & (df['Station']!= "Callout"))].drop(columns=['Date','Rotation','AKA'])
     def get_stations(stations):
         new_dict = {
 
