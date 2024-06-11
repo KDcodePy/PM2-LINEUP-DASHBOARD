@@ -119,73 +119,86 @@ st_lottie(lottie_tesla,
     
 
 with col[1]:
+    class Employee():
+        def __init__(self,data ):
+            self.data = {}
+
     
     aka  =st.selectbox('Select a Name', df['AKA'].unique())
     # Get name
-    
 
-    data_per_aka = df[(df['AKA']==aka)&(df['Station']!='Callout')]
+    stations_per_aka = df[df['AKA']== aka].drop(columns=['Date','Rotation','AKA'])
+    def get_stations(stations):
+        new_dict = {
+
+        }
+        for station in stations.iterrows():
+            if station[1][0] in new_dict:
+                new_dict[station[1][0]]+=1
+            else:
+                new_dict[station[1][0]] = 1
+        return new_dict
+
     # Creating dataset
-    Station = data_per_aka['Station'].unique()
-    
-    data = data_per_aka['Station'].value_counts()
-    
-    
+    Employee.data = get_stations(stations_per_aka)
+    Stations = Employee.data.keys()
+    data = Employee.data.values()
+
+
     # # Creating explode data
     # explode = (0.1,0.2,0.0,0.0,0.2,0.1,0.1,0.2,0.1)
-    explode = tuple(0.15 for i in range(len(Station)))
-    
+    explode = tuple(0.15 for i in range(len(Stations)))
+
     # Creating color parameters
     colors = ("moccasin", "peru", "darkgray",
-              "darkkhaki", "darkturquoise", "plum",
-              'darkorange','khaki','skyblue',
-              'coral','tomato','salmon','pink')
-    
+            "darkkhaki", "darkturquoise", "plum",
+            'darkorange','khaki','skyblue',
+            'coral','tomato','salmon','pink')
+
     # Wedge properties
     wp = {'linewidth': 1, 'edgecolor': "green"}
-    
+
     # Creating autocpt arguments
-    
-    
+
+
     def func(pct, allvalues):
         absolute = int(pct / 100.*np.sum(allvalues))
         return "{:.1f}%\n({:d})".format(pct, absolute)
-    
-    
+
+
     # Creating plot
     fig, ax = plt.subplots(figsize=(25, 20))
     wedges, texts, autotexts = ax.pie(data,
-                                    autopct=lambda pct: func(pct, data),
+                                    autopct=lambda pct: func(pct, list(data)),
                                     explode=explode,
-                                    labels=Station,
+                                    labels=Stations,
                                     shadow=True,
                                     colors=colors,
                                     startangle=75,
                                     wedgeprops={'edgecolor': 'black'},
                                     
                                     textprops=dict(color="k",
-                                                   fontsize= 25,
+                                                fontsize= 25,
                                                     fontstyle='oblique' ))
-    
-    
+
+
     # Adding legend
-    ax.legend(wedges, Station,
+    ax.legend(wedges, Stations,
             title="Stations",
             loc="upper right",
             bbox_to_anchor=(1, 0, 0.5, 1),
             fontsize='xx-large',
             title_fontsize = 'xx-large')
-    
+
     plt.setp(autotexts, size=20, weight="bold")
     ax.set_title(f"{aka}'s Top Station Rotation",
-                 loc= 'center',
-                 fontdict={
-                     'fontsize': 40,
-                     'fontstyle': 'italic'
-                 })
+                loc= 'center',
+                fontdict={
+                    'fontsize': 40,
+                    'fontstyle': 'italic'
+                })
     fig.set_facecolor('bisque')
-    
-    
+
     # show plot
     st.pyplot(plt.gcf())
 
